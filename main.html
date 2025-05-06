@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConfuciusClass - Изучай китайский с мудростью</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-red: #9E1B1B;
+            --dark-red: #7A0F0F;
+            --gold: #D4AF37;
+            --light-gold: #F5E6AB;
+            --dark-gray: #333333;
+            --medium-gray: #555555;
+            --light-gray: #F5F5F5;
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .logo::before {
+            content: "汉语";
+            font-size: 3rem;
+            margin-right: 10px;
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%239E1B1B" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>') bottom center no-repeat, linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            background-size: 100% 50px, cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            width: 100%;
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Floating Characters */
+        .floating-characters {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.2;
+        }
+
+        .character {
+            position: absolute;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            animation: float 15s infinite linear;
+            opacity: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .about h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--gold);
+            bottom: -15px;
+            left: 25%;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .about-card {
+            flex: 1;
+            min-width: 300px;
+            margin: 20px;
+            padding: 40px 30px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-red);
+        }
+
+        .about-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--dark-red);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .about-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--medium-gray);
+        }
+
+        /* Mission Section */
+        .mission {
+            padding: 100px 0;
+            background-color: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%237A0F0F" d="M0,100 L100,0 L100,100 Z"></path></svg>') top left no-repeat;
+            background-size: 30% 100%;
+            opacity: 0.1;
+        }
+
+        .mission h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--gold);
+        }
+
+        .mission p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .mission-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+            margin: 20px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background-color: rgba(212, 175, 55, 0.2);
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin: 20px;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: var(--primary-red);
+            bottom: -8px;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 20px;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Confucius<span>Class</span></a>
+                <nav>
+                    <ul>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="courses.html">Курсы</a></li>
+                        <li><a href="#">Методика</a></li>
+                        <li><a href="#">Преподаватели</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="floating-characters" id="floatingChars"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Откройте для себя <span>китайский</span></h1>
+                <p>Изучайте язык с многовековой мудростью Конфуция через современные методики и интерактивные уроки</p>
+                <a href="#" class="cta-button">Начать обучение</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <h2>Почему ConfuciusClass?</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>Традиции и инновации</h3>
+                    <p>Мы сочетаем древние методы обучения с современными технологиями, создавая уникальный образовательный опыт.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Живой язык</h3>
+                    <p>Наши курсы ориентированы на практическое использование языка в реальных ситуациях, а не только на теорию.</p>
+                </div>
+                <div class="about-card">
+                    <h3>Культурный контекст</h3>
+                    <p>Вы не просто учите язык - вы погружаетесь в культуру, историю и философию Китая.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission">
+        <div class="container">
+            <h2>Наша миссия</h2>
+            <p>ConfuciusClass создан, чтобы сделать изучение китайского языка доступным, увлекательным и эффективным для всех. Мы верим, что язык - это мост между культурами, и наш долг - помочь вам построить этот мост.</p>
+
+            <div class="mission-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10,000+</div>
+                    <div class="stat-label">Учеников</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Часов контента</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Удовлетворённости</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Доступ к урокам</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ConfuciusClass</h3>
+                    <p>Образовательная платформа для изучения китайского языка через призму культуры и философии.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul>
+                        <li><a href="#">Для начинающих</a></li>
+                        <li><a href="#">Разговорный китайский</a></li>
+                        <li><a href="#">Деловой китайский</a></li>
+                        <li><a href="#">Подготовка к HSK</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ресурсы</h3>
+                    <ul>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Словарь</a></li>
+                        <li><a href="#">Грамматика</a></li>
+                        <li><a href="#">Культура Китая</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:info@confuciusclass.com">info@confuciusclass.com</a></li>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                        <li><a href="#">Мы в соцсетях</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 ConfuciusClass. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Floating Chinese characters animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const characters = ['学', '习', '中', '文', '语', '言', '智', '慧', '孔', '子', '文', '化', '知', '识'];
+            const floatingChars = document.getElementById('floatingChars');
+
+            for (let i = 0; i < 20; i++) {
+                const char = document.createElement('div');
+                char.className = 'character';
+                char.textContent = characters[Math.floor(Math.random() * characters.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.top = Math.random() * 100 + '%';
+                char.style.animationDelay = Math.random() * 15 + 's';
+                char.style.animationDuration = 10 + Math.random() * 20 + 's';
+                char.style.transform = 'scale(' + (0.5 + Math.random()) + ')';
+                floatingChars.appendChild(char);
+            }
+
+            // Animate cards on scroll
+            const aboutCards = document.querySelectorAll('.about-card');
+            const statItems = document.querySelectorAll('.stat-item');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            aboutCards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.8s ease';
+                observer.observe(card);
+            });
+
+            statItems.forEach((item, index) => {
+                item.style.opacity = 0;
+                item.style.transform = 'scale(0.8)';
+                item.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>

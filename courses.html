@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConfuciusClass - Изучай китайский с мудростью</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+         :root {
+            --primary-red: #9E1B1B;
+            --dark-red: #7A0F0F;
+            --gold: #D4AF37;
+            --light-gold: #F5E6AB;
+            --dark-gray: #333333;
+            --medium-gray: #555555;
+            --light-gray: #F5F5F5;
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .logo::before {
+            content: "汉语";
+            font-size: 3rem;
+            margin-right: 10px;
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%239E1B1B" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>') bottom center no-repeat, linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            background-size: 100% 50px, cover;
+        }
+
+        .hero-content {
+            text-align: center;
+            width: 100%;
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark-gray);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            background-color: var(--light-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Floating Characters */
+        .floating-characters {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0.2;
+        }
+
+        .character {
+            position: absolute;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            animation: float 15s infinite linear;
+            opacity: 0;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .about h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--gold);
+            bottom: -15px;
+            left: 25%;
+        }
+
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .about-card {
+            flex: 1;
+            min-width: 300px;
+            margin: 20px;
+            padding: 40px 30px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-red);
+        }
+
+        .about-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--dark-red);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .about-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--medium-gray);
+        }
+
+        /* Mission Section */
+        .mission {
+            padding: 100px 0;
+            background-color: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="%237A0F0F" d="M0,100 L100,0 L100,100 Z"></path></svg>') top left no-repeat;
+            background-size: 30% 100%;
+            opacity: 0.1;
+        }
+
+        .mission h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--gold);
+        }
+
+        .mission p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .mission-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 200px;
+            margin: 20px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background-color: rgba(212, 175, 55, 0.2);
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin: 20px;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: var(--primary-red);
+            bottom: -8px;
+            left: 0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 20px;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-card {
+                min-width: 100%;
+            }
+        }
+        /* Дополнительные стили для страницы курсов */
+        .course-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            margin: 0 10px 15px;
+            background: var(--light-gray);
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: var(--dark-gray);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .course-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-level {
+            color: var(--primary-red);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .course-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: var(--medium-gray);
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-red);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--medium-gray);
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+
+        .course-cta {
+            display: block;
+            text-align: center;
+            background: var(--primary-red);
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .course-cta:hover {
+            background: var(--dark-red);
+        }
+
+        .testimonials-section {
+            background: var(--light-gray);
+            padding: 80px 0;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 20px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: """;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 5rem;
+            color: var(--gold);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            opacity: 0.2;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-size: cover;
+            margin-right: 15px;
+            border: 2px solid var(--gold);
+        }
+
+        .free-lesson-banner {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .free-lesson-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- ... (такой же header как на главной) ... -->
+    </header>
+
+    <section class="hero" style="height: 60vh;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Наши <span>курсы</span></h1>
+                <p>Выберите программу, которая соответствует вашим целям и уровню подготовки</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="course-categories">
+            <button class="category-btn active">Все курсы</button>
+            <button class="category-btn">Для начинающих</button>
+            <button class="category-btn">Разговорный</button>
+            <button class="category-btn">Деловой</button>
+            <button class="category-btn">HSK</button>
+            <button class="category-btn">Для детей</button>
+        </div>
+
+        <div class="courses-grid">
+            <!-- Курс 1 -->
+            <div class="course-card">
+                <div class="course-badge">Популярный</div>
+                <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b');"></div>
+                <div class="course-content">
+                    <span class="course-level">Начальный уровень</span>
+                    <h3 class="course-title">Основы китайского за 30 дней</h3>
+                    <p>Освойте базовую лексику и грамматику для повседневного общения.</p>
+                    <div class="course-meta">
+                        <span>36 уроков</span>
+                        <span>5 тестов</span>
+                    </div>
+                    <div class="course-price">₽8,900 <span class="original-price">₽12,500</span></div>
+                    <a href="#" class="course-cta">Записаться</a>
+                </div>
+            </div>
+
+            <!-- Курс 2 -->
+            <div class="course-card">
+                <div class="course-badge">Новый</div>
+                <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1509803874385-db7c23652552');"></div>
+                <div class="course-content">
+                    <span class="course-level">Средний уровень</span>
+                    <h3 class="course-title">Разговорный клуб с носителями</h3>
+                    <p>Еженедельные живые сессии с преподавателями из Китая.</p>
+                    <div class="course-meta">
+                        <span>12 сессий</span>
+                        <span>3 месяца</span>
+                    </div>
+                    <div class="course-price">₽15,000 <span class="original-price">₽18,000</span></div>
+                    <a href="#" class="course-cta">Записаться</a>
+                </div>
+            </div>
+
+            <!-- Курс 3 -->
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173');"></div>
+                <div class="course-content">
+                    <span class="course-level">Продвинутый</span>
+                    <h3 class="course-title">Деловой китайский</h3>
+                    <p>Специализированная лексика для ведения переговоров и переписки.</p>
+                    <div class="course-meta">
+                        <span>24 урока</span>
+                        <span>8 кейсов</span>
+                    </div>
+                    <div class="course-price">₽19,900</div>
+                    <a href="#" class="course-cta">Записаться</a>
+                </div>
+            </div>
+
+            <!-- Курс 4 -->
+            <div class="course-card">
+                <div class="course-badge">Бестселлер</div>
+                <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d');"></div>
+                <div class="course-content">
+                    <span class="course-level">Подготовка</span>
+                    <h3 class="course-title">HSK 1-3: полный курс</h3>
+                    <p>Подготовка к международному экзамену с гарантией результата.</p>
+                    <div class="course-meta">
+                        <span>48 уроков</span>
+                        <span>12 пробных тестов</span>
+                    </div>
+                    <div class="course-price">₽24,900 <span class="original-price">₽29,900</span></div>
+                    <a href="#" class="course-cta">Записаться</a>
+                </div>
+            </div>
+
+            <!-- Курс 5 -->
+            <div class="course-card">
+                <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350');"></div>
+                <div class="course-content">
+                    <span class="course-level">Для детей</span>
+                    <h3 class="course-title">Китайский через сказки</h3>
+                    <p>Игровая методика для детей 6-12 лет с мультфильмами и песнями.</p>
+                    <div class="course-meta">
+                        <span>40 уроков</span>
+                        <span>Интерактивы</span>
+                    </div>
+                    <div class="course-price">₽12,500</div>
+                    <a href="#" class="course-cta">Записаться</a>
+                </div>
+            </div>
+
+            <!-- Курс 6 -->
+            <div class="course-card">
+                <div class="course-badge">Лучшая цена</div>
+                <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d');"></div>
+                <div class="course-content">
+                    <span class="course-level">С нуля</span>
+                    <h3 class="course-title">Иероглифика за 60 дней</h3>
+                    <p>Методика запоминания 500+ иероглифов с мнемотехниками.</p>
+                    <div class="course-meta">
+                        <span>60 уроков</span>
+                        <span>Чек-листы</span>
+                    </div>
+                    <div class="course-price">₽9,900 <span class="original-price">₽14,900</span></div>
+                    <a href="#" class="course-cta">Записаться</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="free-lesson-banner">
+        <div class="free-lesson-content">
+            <h2 style="color: white; margin-bottom: 20px;">Попробуйте бесплатно!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Получите 3 бесплатных урока любого курса прямо сейчас</p>
+            <form style="display: flex; max-width: 500px; margin: 0 auto;">
+                <input type="email" placeholder="Ваш email" style="flex: 1; padding: 15px; border: none; border-radius: 5px 0 0 5px;">
+                <button type="submit" style="background: var(--gold); color: var(--dark-gray); border: none; padding: 0 25px; font-weight: 700; border-radius: 0 5px 5px 0; cursor: pointer;">Получить</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px; color: var(--primary-red);">Отзывы наших учеников</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                <!-- Отзыв 1 -->
+                <div class="testimonial-card" style="max-width: 400px;">
+                    <p>За 3 месяца подготовки с ConfuciusClass сдал HSK 3 на 98%. Особенно помогли техники запоминания иероглифов - теперь могу читать простые тексты!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg');"></div>
+                        <div>
+                            <div style="font-weight: 700;">Алексей К.</div>
+                            <div style="color: var(--medium-gray); font-size: 0.9rem;">Курс HSK 1-3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Отзыв 2 -->
+                <div class="testimonial-card" style="max-width: 400px;">
+                    <p>Благодаря разговорному клубу перестала бояться говорить. Через 5 месяцев смогла вести переговоры с китайскими партнёрами без переводчика!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg');"></div>
+                        <div>
+                            <div style="font-weight: 700;">Елена С.</div>
+                            <div style="color: var(--medium-gray); font-size: 0.9rem;">Деловой китайский</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <!-- ... (такой же footer как на главной) ... -->
+    </footer>
+
+    <script>
+        // Фильтрация курсов
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.category-btn.active').classList.remove('active');
+                this.classList.add('active');
+
+                // Здесь будет логика фильтрации
+            });
+        });
+
+        // Анимация карточек
+        const courseCards = document.querySelectorAll('.course-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        courseCards.forEach((card, index) => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
